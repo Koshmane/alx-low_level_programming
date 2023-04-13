@@ -2,51 +2,29 @@
 #include <stdlib.h>
 
 /**
-  * alloc_grid - ...
-  * @width: ...
-  * @height: ...
+  * array_range - ...
+  * @min: ...
+  * @max: ...
   *
-  * Return: ...
+  * Return: integer value
   */
-
-int **alloc_grid(int width, int height)
+int *array_range(int min, int max)
 {
-	int i, j, k, l;
-	int **a;
+	int *a, i = 0;
 
-	if (width <= 0 || height <= 0)
+	if (min > max)
 		return (NULL);
 
-	a = malloc(sizeof(int *) * height);
+	a = malloc((sizeof(int) * (max - min)) + sizeof(int));
 
 	if (a == NULL)
-	{
-		free(a);
 		return (NULL);
-	}
 
-	for (i = 0; i < height; i++)
+	while (min <= max)
 	{
-		a[i] = malloc(sizeof(int) * width);
-
-		if (a[i] == NULL)
-		{
-			for (j = i; j >= 0; j--)
-			{
-				free(a[j]);
-			}
-
-			free(a);
-			return (NULL);
-		}
-	}
-
-	for (k = 0; k < height; k++)
-	{
-		for (l = 0; l < width; l++)
-		{
-			a[k][l] = 0;
-		}
+		a[i] = min;
+		i++;
+		min++;
 	}
 
 	return (a);

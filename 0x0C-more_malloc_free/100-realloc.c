@@ -3,52 +3,50 @@
 #include <stdio.h>
 
 /**
-  * argstostr - convert the params passed to the program to string
-  * @ac: the argument count
-  * @av: the argument vector
+  * _realloc - ...
+  * @ptr: ...
+  * @old_size: ...
+  * @new_size: ...
   *
   * Return: ...
   */
-char *argstostr(int ac, char **av)
-{
-	int ch = 0, i = 0, j = 0, k = 0;
-	char *s;
 
-	if (ac == 0 || av == NULL)
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+{
+	char *nptr;
+	unsigned int i;
+
+	if (new_size == old_size)
+		return (ptr);
+
+	if (ptr == NULL)
+	{
+		nptr = malloc(new_size);
+
+		if (nptr == NULL)
+			return (NULL);
+
+		return (nptr);
+	}
+	else
+	{
+		if (new_size == 0)
+		{
+			free(ptr);
+			return (NULL);
+		}
+	}
+
+	nptr = malloc(new_size);
+
+	if (nptr == NULL)
 		return (NULL);
 
-	while (i < ac)
+	for (i = 0; i < old_size && i < new_size; i++)
 	{
-		while (av[i][j])
-		{
-			ch++;
-			j++;
-		}
-
-		j = 0;
-		i++;
+		nptr[i] = ((char *) ptr)[i];
 	}
 
-	s = malloc((sizeof(char) * ch) + ac + 1);
-
-	i = 0;
-	while (av[i])
-	{
-		while (av[i][j])
-		{
-			s[k] = av[i][j];
-			k++;
-			j++;
-		}
-
-		s[k] = '\n';
-
-		j = 0;
-		k++;
-		i++;
-	}
-
-	k++;
-	s[k] = '\0';
-	return (s);
+	free(ptr);
+	return (nptr);
 }
